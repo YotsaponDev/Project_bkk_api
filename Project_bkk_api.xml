@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Project_bkk_api</name>
+    </assembly>
+    <members>
+        <member name="M:Project_bkk_api.Controllers.TestController.GetAll">
+            <summary>
+            Test Get
+            </summary>
+        </member>
+    </members>
+</doc>
