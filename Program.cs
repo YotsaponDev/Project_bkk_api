@@ -19,6 +19,7 @@ namespace Project_bkk_api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseSetting("https_port", "443");
     }
 }
