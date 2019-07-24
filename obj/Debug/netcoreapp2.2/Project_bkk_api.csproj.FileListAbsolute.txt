@@ -59,13 +59,3 @@ C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Project_bkk_api.Views.pdb
 C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Project_bkk_api.dll
 C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Project_bkk_api.pdb
 C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Project_bkk_api.csproj.CopyComplete
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\TestEntities\Create.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\TestEntities\Delete.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\TestEntities\Details.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\TestEntities\Edit.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\TestEntities\Index.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\Test\Create.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\Test\Delete.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\Test\Details.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\Test\Edit.g.cshtml.cs
-C:\project\Project_bkk_api\obj\Debug\netcoreapp2.2\Razor\Views\Test\Index.g.cshtml.cs

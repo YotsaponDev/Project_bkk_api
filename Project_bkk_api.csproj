@@ -10,6 +10,13 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Staff1\**" />
+    <Content Remove="Models\Staff1\**" />
+    <EmbeddedResource Remove="Models\Staff1\**" />
+    <None Remove="Models\Staff1\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />

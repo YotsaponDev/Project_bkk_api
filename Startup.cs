@@ -13,8 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Project_bkk_api.Models;
 using Microsoft.EntityFrameworkCore;
+using Core.Data;
 
 namespace Project_bkk_api
 {
@@ -69,8 +69,10 @@ namespace Project_bkk_api
             });
 
             //services.AddDbContext<TestContext>();
-            services.AddDbContext<TestContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<LawsContext>(options =>
+            //   options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
