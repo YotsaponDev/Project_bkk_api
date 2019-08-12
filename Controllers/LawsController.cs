@@ -9,6 +9,7 @@ using Project_bkk_api.Models;
 using Microsoft.Extensions.Logging;
 using Core.Data;
 using Todo.Models;
+using Project_bkk_api.Models.Laws;
 
 namespace Project_bkk_api.Controllers
 {
@@ -17,11 +18,11 @@ namespace Project_bkk_api.Controllers
     {
         private ILogger<LawsController> _logger;
 
-        private readonly DataContext _context;
+        private readonly ILaws _laws;
 
-        public LawsController(DataContext context)
+        public LawsController(ILaws laws)
         {
-            _context = context;
+            _laws = laws;
         }
 
         /// <summary>
@@ -31,17 +32,45 @@ namespace Project_bkk_api.Controllers
         /// Laws get all data
         /// </remarks>
         /// <returns>Return all data</returns>
-        /// <response code="200">Returns the item</response>
+        /// <response code="200">Returns all data</response>
         /// <response code="500">Error Occurred</response>  
         [HttpGet("")]
         [ProducesResponseType(typeof(List<LawsViewModel>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Index()
+        public IActionResult GetAll()
         {
             try
             {
-                return Json(await _context.laws.ToListAsync());
+                var data = _laws.GetAll();
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while get list of items.", ex);
+                return StatusCode(500, $"Exception while get list of items. {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Laws get By Id
+        /// </summary>
+        /// <remarks>
+        /// Laws get By Id
+        /// </remarks>
+        /// <returns>Return all data</returns>
+        /// <response code="200">Returns the item</response>
+        /// <response code="500">Error Occurred</response>  
+        [HttpGet("GetById")]
+        [ProducesResponseType(typeof(List<LawsViewModel>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public IActionResult GetById(Guid id)
+        {
+            try
+            {
+                var data = _laws.GetById(id);
+                return Json(data);
             }
             catch (Exception ex)
             {
@@ -63,12 +92,21 @@ namespace Project_bkk_api.Controllers
         [ProducesResponseType(typeof(List<LawsViewModel>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult Insert([FromBody] LawsInsertModel model)
+        public IActionResult Create([FromBody] LawsEntity model)
         {
-            // ...
-            var insert = new LawsService();
-            var data = insert.Insert(model);
-            return Json(data);
+            try
+            {
+                if (model != null)
+                {
+                    _laws.Create(model);
+                }
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while get list of items.", ex);
+                return StatusCode(500, $"Exception while get list of items. {ex.Message}");
+            }
         }
         //public async Task<IActionResult> Create()
         //{

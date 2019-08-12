@@ -4,10 +4,49 @@
         <name>Project_bkk_api</name>
     </assembly>
     <members>
-        <member name="M:Project_bkk_api.Controllers.TestController.GetAll">
+        <member name="M:Project_bkk_api.Controllers.LawsController.GetAll">
             <summary>
-            Test Get
+            Laws get all data
             </summary>
+            <remarks>
+            Laws get all data
+            </remarks>
+            <returns>Return all data</returns>
+            <response code="200">Returns all data</response>
+            <response code="500">Error Occurred</response>  
+        </member>
+        <member name="M:Project_bkk_api.Controllers.LawsController.GetById(System.Guid)">
+            <summary>
+            Laws get By Id
+            </summary>
+            <remarks>
+            Laws get By Id
+            </remarks>
+            <returns>Return all data</returns>
+            <response code="200">Returns the item</response>
+            <response code="500">Error Occurred</response>  
+        </member>
+        <member name="M:Project_bkk_api.Controllers.LawsController.Create(Todo.Models.LawsEntity)">
+            <summary>
+            Laws create item
+            </summary>
+            <remarks>
+            Laws create item
+            </remarks>
+            <returns>Return create item</returns>
+            <response code="200">Returns the item</response>
+            <response code="500">Error Occurred</response>  
+        </member>
+        <member name="M:Project_bkk_api.Controllers.StaffController.Index">
+            <summary>
+            Staff get all data
+            </summary>
+            <remarks>
+            Staff get all data
+            </remarks>
+            <returns>Return all data</returns>
+            <response code="200">Returns the item</response>
+            <response code="500">Error Occurred</response>  
         </member>
     </members>
 </doc>

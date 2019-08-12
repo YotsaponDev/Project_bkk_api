@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Core.Data;
+using Project_bkk_api.Models.Laws;
+using Todo.Models;
 
 namespace Project_bkk_api
 {
@@ -71,6 +73,8 @@ namespace Project_bkk_api
             //services.AddDbContext<TestContext>();
             services.AddDbContext<DataContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<ILaws, LawsRepository>();
             //services.AddDbContext<LawsContext>(options =>
             //   options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
         }
