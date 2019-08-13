@@ -37,14 +37,25 @@
             <response code="200">Returns the item</response>
             <response code="500">Error Occurred</response>  
         </member>
-        <member name="M:Project_bkk_api.Controllers.StaffController.Index">
+        <member name="M:Project_bkk_api.Controllers.LawsController.Update(System.Guid,Todo.Models.LawsEntity)">
             <summary>
-            Staff get all data
+            Laws Update item
             </summary>
             <remarks>
-            Staff get all data
+            Laws Update item
             </remarks>
-            <returns>Return all data</returns>
+            <returns>Return create item</returns>
+            <response code="200">Returns the item</response>
+            <response code="500">Error Occurred</response>  
+        </member>
+        <member name="M:Project_bkk_api.Controllers.LawsController.Delete(System.Guid)">
+            <summary>
+            Laws Update item
+            </summary>
+            <remarks>
+            Laws Update item
+            </remarks>
+            <returns>Return create item</returns>
             <response code="200">Returns the item</response>
             <response code="500">Error Occurred</response>  
         </member>

@@ -11,7 +11,7 @@ namespace Project_bkk_api.Models.Laws
         List<LawsEntity> GetAll();
         LawsEntity GetById(Guid id);
         LawsEntity Create(LawsEntity model);
-        LawsEntity Update(LawsEntity modelUpdate);
+        LawsEntity Update(Guid id, LawsEntity modelUpdate);
         LawsEntity Delete(Guid id);
     }
 }

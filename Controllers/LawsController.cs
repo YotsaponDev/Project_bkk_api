@@ -108,143 +108,73 @@ namespace Project_bkk_api.Controllers
                 return StatusCode(500, $"Exception while get list of items. {ex.Message}");
             }
         }
-        //public async Task<IActionResult> Create()
-        //{
-        //    try
-        //    {
-        //        return Json(await _context.laws.ToListAsync());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogCritical($"Exception while get list of items.", ex);
-        //        return StatusCode(500, $"Exception while get list of items. {ex.Message}");
-        //    }
-        //}
 
-        //// GET: Laws/Details/5
-        //public async Task<IActionResult> Details(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        /// <summary>
+        /// Laws Update item
+        /// </summary>
+        /// <remarks>
+        /// Laws Update item
+        /// </remarks>
+        /// <returns>Return create item</returns>
+        /// <response code="200">Returns the item</response>
+        /// <response code="500">Error Occurred</response>  
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(List<LawsViewModel>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public IActionResult Update(Guid id, [FromBody] LawsEntity model)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return StatusCode(400, $"ID is not valid.");
+                }
+                else
+                {
+                    var res = _laws.Update(id, model);
+                    return Json(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while get list of items.", ex);
+                return StatusCode(500, $"Exception while get list of items. {ex.Message}");
+            }
+        }
 
-        //    var lawsEntity = await _context.laws
-        //        .FirstOrDefaultAsync(m => m.id == id);
-        //    if (lawsEntity == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(lawsEntity);
-        //}
-
-        //// GET: Laws/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        // POST: Laws/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("id,fullname,position,ad_username,password,email,tel,is_active,created_by,created_at,updated_by,updated_at,delete_at")] LawsEntity lawsEntity)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        lawsEntity.id = Guid.NewGuid();
-        //        _context.Add(lawsEntity);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(lawsEntity);
-        //}
-
-        //// GET: Laws/Edit/5
-        //public async Task<IActionResult> Edit(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var lawsEntity = await _context.laws.FindAsync(id);
-        //    if (lawsEntity == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(lawsEntity);
-        //}
-
-        //// POST: Laws/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Guid id, [Bind("id,fullname,position,ad_username,password,email,tel,is_active,created_by,created_at,updated_by,updated_at,delete_at")] LawsEntity lawsEntity)
-        //{
-        //    if (id != lawsEntity.id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(lawsEntity);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!LawsEntityExists(lawsEntity.id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(lawsEntity);
-        //}
-
-        //// GET: Laws/Delete/5
-        //public async Task<IActionResult> Delete(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var lawsEntity = await _context.laws
-        //        .FirstOrDefaultAsync(m => m.id == id);
-        //    if (lawsEntity == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(lawsEntity);
-        //}
-
-        //// POST: Laws/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(Guid id)
-        //{
-        //    var lawsEntity = await _context.laws.FindAsync(id);
-        //    _context.laws.Remove(lawsEntity);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool LawsEntityExists(Guid id)
-        //{
-        //    return _context.laws.Any(e => e.id == id);
-        //}
+        /// <summary>
+        /// Laws Update item
+        /// </summary>
+        /// <remarks>
+        /// Laws Update item
+        /// </remarks>
+        /// <returns>Return create item</returns>
+        /// <response code="200">Returns the item</response>
+        /// <response code="500">Error Occurred</response>  
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(List<LawsViewModel>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return StatusCode(400, $"ID is not valid.");
+                }
+                else
+                {
+                    var res = _laws.Delete(id);
+                    return Json(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while get list of items.", ex);
+                return StatusCode(500, $"Exception while get list of items. {ex.Message}");
+            }
+        }
     }
 }

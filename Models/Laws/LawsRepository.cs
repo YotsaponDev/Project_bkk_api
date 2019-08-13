@@ -19,7 +19,7 @@ namespace Todo.Models
 
         public List<LawsEntity> GetAll()
         {
-            return _context.laws.ToList();
+            return _context.laws.Where(x => x.delete_at == null).ToList();
         }
 
         public LawsEntity GetById(Guid id)
@@ -36,14 +36,32 @@ namespace Todo.Models
             return model;
         }
 
-        public LawsEntity Update(LawsEntity modelUpdate)
+        public LawsEntity Update(Guid id, LawsEntity modelUpdate)
         {
-            throw new NotImplementedException();
+            var data = _context.laws.Find(id);
+
+            data.name = modelUpdate.name;
+            data.note = modelUpdate.note;
+            data.is_active = modelUpdate.is_active;
+            //data.created_by = modelUpdate.created_by;
+            //data.created_at = modelUpdate.created_at;
+            data.updated_by = modelUpdate.updated_by;
+            data.updated_at = DateTime.Now;
+
+            _context.SaveChanges();
+
+            return data;
         }
 
         public LawsEntity Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var data = _context.laws.Find(id);
+
+            data.delete_at = DateTime.Now;
+
+            _context.SaveChanges();
+
+            return data;
         }  
     }
 }
