@@ -19,7 +19,7 @@ namespace Todo.Models
 
         public List<LawsEntity> GetAll()
         {
-            return _context.laws.Where(x => x.delete_at == null).ToList();
+            return _context.laws.Where(x => x.deleted_at == null).ToList();
         }
 
         public LawsEntity GetById(Guid id)
@@ -29,7 +29,8 @@ namespace Todo.Models
 
         public LawsEntity Create(LawsEntity model)
         {
-            model.delete_at = null;
+            model.id = Guid.NewGuid();
+            model.deleted_at = null;
             _context.laws.Add(model);
             _context.SaveChanges();
 
@@ -57,7 +58,7 @@ namespace Todo.Models
         {
             var data = _context.laws.Find(id);
 
-            data.delete_at = DateTime.Now;
+            data.deleted_at = DateTime.Now;
 
             _context.SaveChanges();
 

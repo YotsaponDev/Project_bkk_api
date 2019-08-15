@@ -13,5 +13,6 @@ namespace Core.Data
 
         public DbSet<StaffEntity> staff { get; set; }
         public DbSet<LawsEntity> laws { get; set; }
+        public DbSet<UserEntity> user { get; set; }
     }
 }

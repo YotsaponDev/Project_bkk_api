@@ -18,7 +18,7 @@ namespace Todo.Models
         [MaxLength(3000)]
         public string note { get; set; }
 
-        public bool? is_active { get; set; }
+        public bool is_active { get; set; }
 
         public Guid? created_by { get; set; }
 
@@ -28,6 +28,6 @@ namespace Todo.Models
 
         public DateTime? updated_at { get; set; }
 
-        public DateTime? delete_at { get; set; }
+        public DateTime? deleted_at { get; set; }
     }
 }

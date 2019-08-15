@@ -15,8 +15,11 @@ using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Core.Data;
-using Project_bkk_api.Models.Laws;
+using Project_bkk_api.Models;
 using Todo.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Project_bkk_api
 {
@@ -65,6 +68,18 @@ namespace Project_bkk_api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "BKK API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Description = "JWT Authorization header {token}",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Bearer", new string[] { } }
+                });
+
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Project_bkk_api.xml");
                 c.IncludeXmlComments(xmlPath);
@@ -74,7 +89,28 @@ namespace Project_bkk_api
             services.AddDbContext<DataContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<ILaws, LawsRepository>();
+            // configure jwt authentication
+            string key = Configuration.GetSection("JWT").GetSection("SecurityKey").Value;
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            services.AddTransient<Models.Laws.ILaws, LawsRepository>();
+            services.AddTransient<Models.User.IUser, UserRepository>();
             //services.AddDbContext<LawsContext>(options =>
             //   options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
         }
@@ -104,6 +140,8 @@ namespace Project_bkk_api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "BkkAPI V1");
                 //c.RoutePrefix = string.Empty;
             });
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
