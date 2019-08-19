@@ -10,9 +10,10 @@ namespace Project_bkk_api.Models.User
     {
         List<UserEntity> GetAll();
         UserEntity GetById(Guid id);
+        UserReturnViewModel GetByIdViaJWT(string authHeader);
         UserEntity Create(UserEntity model);
         UserEntity Update(Guid id, UserEntity modelUpdate);
         UserEntity Delete(Guid id);
-        object Login(LoginViewModel model);
+        object Login(UserLoginViewModel model);
     }
 }

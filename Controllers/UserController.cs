@@ -11,6 +11,7 @@ using Core.Data;
 using Todo.Models;
 using Project_bkk_api.Models.User;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
 
 namespace Project_bkk_api.Controllers
 {
@@ -84,6 +85,41 @@ namespace Project_bkk_api.Controllers
         }
 
         /// <summary>
+        /// User get By Id
+        /// </summary>
+        /// <remarks>
+        /// User get By Id
+        /// </remarks>
+        /// <returns>Return all data</returns>
+        /// <response code="200">Returns the item</response>
+        /// <response code="500">Error Occurred</response>  
+        [HttpGet("GetByIdViaJWT")]
+        [ProducesResponseType(typeof(UserReturnViewModel), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public IActionResult GetByIdViaJWT()
+        {
+            try
+            {
+                var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                if (authHeader == null)
+                {
+                    throw new Exception("Authorization none");
+                }
+                else
+                {
+                    var data = _user.GetByIdViaJWT(authHeader.ToString());
+                    return Json(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while get list of items.", ex);
+                return StatusCode(500, $"Exception while get list of items. {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// User create item
         /// </summary>
         /// <remarks>
@@ -132,7 +168,7 @@ namespace Project_bkk_api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
-        public IActionResult Login([FromBody] LoginViewModel model)
+        public IActionResult Login([FromBody] UserLoginViewModel model)
         {
             try
             {
@@ -141,7 +177,7 @@ namespace Project_bkk_api.Controllers
                    var x = _user.Login(model);
                     return Json(x);
                 }
-                return Json(model);
+                return null;
             }
             catch (Exception ex)
             {

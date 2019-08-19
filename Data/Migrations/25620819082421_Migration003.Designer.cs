@@ -3,14 +3,16 @@ using System;
 using Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Project_bkk_api.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("25620819082421_Migration003")]
+    partial class Migration003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace Project_bkk_api.Data.Migrations
                     b.Property<string>("firstname")
                         .HasMaxLength(255);
 
-                    b.Property<bool>("is_active");
+                    b.Property<bool?>("is_active");
 
                     b.Property<string>("lastname")
                         .HasMaxLength(255);
@@ -70,7 +72,7 @@ namespace Project_bkk_api.Data.Migrations
                     b.Property<string>("password")
                         .HasMaxLength(255);
 
-                    b.Property<string>("position")
+                    b.Property<int>("position")
                         .HasMaxLength(255);
 
                     b.Property<string>("tel")

@@ -13,13 +13,16 @@ namespace Todo.Models
         public Guid id { get; set; }
 
         [MaxLength(255)]
-        public string fullname { get; set; }
+        public string firstname { get; set; }
 
         [MaxLength(255)]
-        public int position { get; set; }
+        public string lastname { get; set; }
 
         [MaxLength(255)]
-        public string ad_username { get; set; }
+        public string position { get; set; }
+
+        [MaxLength(255)]
+        public string username { get; set; }
 
         [MaxLength(255)]
         public string password { get; set; }
@@ -30,7 +33,7 @@ namespace Todo.Models
         [MaxLength(255)]
         public string tel { get; set; }
 
-        public bool? is_active { get; set; }
+        public bool is_active { get; set; }
 
         public Guid? created_by { get; set; }
 
@@ -40,6 +43,6 @@ namespace Todo.Models
 
         public DateTime? updated_at { get; set; }
 
-        public DateTime? delete_at { get; set; }
+        public DateTime? deleted_at { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Project_bkk_api.Models.User;
+using Project_bkk_api.Models.Staff;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,29 +14,29 @@ using System.Threading.Tasks;
 
 namespace Todo.Models
 {
-    public class UserRepository : IUser
+    public class StaffRepository : IStaff
     {
         private DataContext _context;
 
         private IConfiguration configuration;
 
-        public UserRepository(DataContext context, IConfiguration iConfig)
+        public StaffRepository(DataContext context, IConfiguration iConfig)
         {
             _context = context;
             configuration = iConfig;
         }
 
-        public List<UserEntity> GetAll()
+        public List<StaffEntity> GetAll()
         {
-            return _context.user.Where(x => x.deleted_at == null).ToList();
+            return _context.staff.Where(x => x.deleted_at == null).ToList();
         }
 
-        public UserEntity GetById(Guid id)
+        public StaffEntity GetById(Guid id)
         {
-            return _context.user.Find(id);
+            return _context.staff.Find(id);
         }
 
-        public UserReturnViewModel GetByIdViaJWT(string authHeader)
+        public StaffReturnViewModel GetByIdViaJWT(string authHeader)
         {
             var handler = new JwtSecurityTokenHandler();
             string[] auth = authHeader.Split(" ");
@@ -49,30 +49,28 @@ namespace Todo.Models
             var lifeTime = new JwtSecurityTokenHandler().ReadToken(auth[1]).ValidTo.ToLocalTime();
 
             var id = handler.ReadJwtToken(auth[1]).Payload.Jti;
-            var user = _context.user.Find(Guid.Parse(id));
-            var data = new UserReturnViewModel();
-            data.id = user.id;
-            data.firstname = user.firstname;
-            data.lastname = user.lastname;
-            data.username = user.username;
-            data.full_company_name = user.full_company_name;
-            data.type = user.type;
-            data.email = user.email;
+            var staff = _context.staff.Find(Guid.Parse(id));
+            var data = new StaffReturnViewModel();
+            data.id = staff.id;
+            data.firstname = staff.firstname;
+            data.lastname = staff.lastname;
+            data.username = staff.username;
+            data.email = staff.email;
 
             return data;
         }
 
-        public UserEntity Create(UserEntity model)
+        public StaffEntity Create(StaffEntity model)
         {
 
-            var user = _context.user.Where(x => x.username == model.username || x.email == model.email).FirstOrDefault();
+            var staff = _context.staff.Where(x => x.username == model.username || x.email == model.email).FirstOrDefault();
 
-            if(user == null)
+            if(staff == null)
             {
                 model.id = Guid.NewGuid();
                 model.deleted_at = null;
                 model.password = StringToMD5(model.password);
-                _context.user.Add(model);
+                _context.staff.Add(model);
                 _context.SaveChanges();
 
                 model.password = null;
@@ -80,10 +78,10 @@ namespace Todo.Models
             }
             else
             {
-                if (user.username == model.username)
+                if (staff.username == model.username)
                 {
                     throw new Exception("Username already exists");
-                } else if (user.email == model.email)
+                } else if (staff.email == model.email)
                 {
                     throw new Exception("Email already exists");
                 }
@@ -95,12 +93,12 @@ namespace Todo.Models
             } 
         }
 
-        public object Login(UserLoginViewModel model)
+        public object Login(StaffLoginViewModel model)
         {
             var checkPassword = StringToMD5(model.password);
-            var user = _context.user.Where(x => x.username == model.username && x.password == checkPassword).FirstOrDefault();
+            var staff = _context.staff.Where(x => x.username == model.username && x.password == checkPassword).FirstOrDefault();
 
-            if (user == null)
+            if (staff == null)
             {
                 throw new Exception();
             }
@@ -108,7 +106,7 @@ namespace Todo.Models
             {
                 var claims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Jti, user.id.ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, staff.id.ToString())
                     //new Claim(JwtRegisteredClaimNames.NameId, user.username),
                     //new Claim(JwtRegisteredClaimNames.GivenName, user.firstname),
                     //new Claim(JwtRegisteredClaimNames.FamilyName, user.lastname),
@@ -141,9 +139,9 @@ namespace Todo.Models
             }
         }
 
-        public UserEntity Update(Guid id, UserEntity modelUpdate)
+        public StaffEntity Update(Guid id, StaffEntity modelUpdate)
         {
-            var data = _context.user.Find(id);
+            var data = _context.staff.Find(id);
 
             data.firstname = modelUpdate.firstname;
             data.lastname = modelUpdate.lastname;
@@ -157,9 +155,9 @@ namespace Todo.Models
             return data;
         }
 
-        public UserEntity Delete(Guid id)
+        public StaffEntity Delete(Guid id)
         {
-            var data = _context.user.Find(id);
+            var data = _context.staff.Find(id);
 
             data.deleted_at = DateTime.Now;
 
