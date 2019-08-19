@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Dev\Project_bkk_api\Project_bkk_api.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.2\Project_bkk_api.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 

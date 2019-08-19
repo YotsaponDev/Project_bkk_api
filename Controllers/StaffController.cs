@@ -85,10 +85,10 @@ namespace Project_bkk_api.Controllers
         }
 
         /// <summary>
-        /// Staff get By Id
+        /// Staff get By Id via JWT
         /// </summary>
         /// <remarks>
-        /// Staff get By Id
+        /// Staff get By Id via JWT
         /// </remarks>
         /// <returns>Return all data</returns>
         /// <response code="200">Returns the item</response>
