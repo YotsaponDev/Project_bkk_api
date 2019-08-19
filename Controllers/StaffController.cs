@@ -104,7 +104,7 @@ namespace Project_bkk_api.Controllers
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
                 if (authHeader == null)
                 {
-                    throw new Exception("Authorization none");
+                    throw new Exception("AuthorizationNone");
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace Project_bkk_api.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [ProducesResponseType(403)]
+        [ProducesResponseType(401)]
         public IActionResult Login([FromBody] StaffLoginViewModel model)
         {
             try
@@ -182,7 +182,7 @@ namespace Project_bkk_api.Controllers
             catch (Exception ex)
             {
                 //_logger.LogCritical($"Exception while get list of items.", ex);
-                return StatusCode(403, "Forbidden");
+                return StatusCode(401, "LoginFailure");
             }
         }
 
