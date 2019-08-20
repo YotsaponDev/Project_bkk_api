@@ -121,8 +121,47 @@ namespace Todo.Models
                     signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
                     );
 
+                // find role
+                var role_name = (from shr in _context.staff_has_role where shr.staff_id == staff.id 
+                          join r in _context.role on shr.role_id equals r.id into r2
+                          from f in r2.DefaultIfEmpty()
+                          select new  {
+                            f.name,f.id
+                           }).ToList();
+
+                List<string> roleNameArr = new List<string>();
+                List<string> permissionNameArr = new List<string>();
+
+                if (role_name != null)
+                {
+                    int rnC = role_name.Count;
+                    for (int i = 0; i < rnC; i++)
+                    {
+                     
+                        // find permission
+                        var pn = (from rhp in _context.role_has_permission
+                                  where rhp.role_id == role_name[i].id
+                                  join p in _context.permission on rhp.permission_id equals p.id into p2
+                                  from f in p2.DefaultIfEmpty()
+                                  select new
+                                  {
+                                      f.name,
+                                      f.id
+                                  }).ToList();
+                        int pnC = pn.Count;
+                        for (int j = 0; j < pnC; j++)
+                        {
+                            permissionNameArr.Add(pn[j].name);
+                        }
+                    }
+                }
+                string[] roleNameArray = roleNameArr.ToArray();
+                string[] permissionNameArray = permissionNameArr.ToArray();
+
                 var return_token = new {
-                    jwt_token = new JwtSecurityTokenHandler().WriteToken(token),
+                    access_token = new JwtSecurityTokenHandler().WriteToken(token),
+                    role = roleNameArray,
+                    permission = permissionNameArray
                 };
 
                 return return_token;

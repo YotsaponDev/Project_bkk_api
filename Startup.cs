@@ -114,6 +114,10 @@ namespace Project_bkk_api
             services.AddTransient<Models.Laws.ILaws, LawsRepository>();
             services.AddTransient<Models.User.IUser, UserRepository>();
             services.AddTransient<Models.Staff.IStaff, StaffRepository>();
+            services.AddTransient<Models.Permission.IPermission, PermissionRepository>();
+            services.AddTransient<Models.Permission.IRole, RoleRepository>();
+            services.AddTransient<Models.Permission.IStaffHasRole, StaffHasRoleRepository>();
+            services.AddTransient<Models.Permission.IRoleHasPermission, RoleHasPermissionRepository>();
             //services.AddDbContext<LawsContext>(options =>
             //   options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
         }

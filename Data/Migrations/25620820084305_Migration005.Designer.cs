@@ -3,14 +3,16 @@ using System;
 using Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Project_bkk_api.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("25620820084305_Migration005")]
+    partial class Migration005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace Project_bkk_api.Data.Migrations
                     b.Property<string>("name")
                         .HasMaxLength(255);
 
-                    b.Property<string>("note")
+                    b.Property<Guid>("note")
                         .HasMaxLength(2000);
 
                     b.Property<DateTime?>("updated_at");
@@ -89,7 +91,7 @@ namespace Project_bkk_api.Data.Migrations
                     b.Property<string>("name")
                         .HasMaxLength(255);
 
-                    b.Property<string>("note")
+                    b.Property<Guid>("note")
                         .HasMaxLength(2000);
 
                     b.Property<DateTime?>("updated_at");
